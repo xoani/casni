@@ -1,20 +1,19 @@
 # Containerized App Scheduler for NeuroImaging (CASNI)
 
-![CASNI Logo](path_to_logo.png) * place logo here
+![CASNI Logo](path_to_logo.png) * logo_placeholder
 
 
 ---
 ## Introduction
 
-**Containerized App Scheduler for NeuroImaging (CASNI)** is a cutting-edge workload management tool designed specifically for the neuroimaging community. With the growing complexity and scale of neuroimaging data, there's a pressing need for efficient, scalable, and reproducible processing pipelines. NICOS harnesses the power of containerization technologies like Docker to address this need, allowing researchers and professionals to run neuroimaging tasks in a modular, isolated, and scalable environment.
+**Containerized App Scheduler for NeuroImaging (CASNI)** is a cutting-edge workload management tool designed specifically for the neuroimaging community. With the growing complexity and scale of neuroimaging data, there's a pressing need for efficient, scalable, and reproducible processing pipelines. CASNI harnesses the power of containerization technologies like Docker to address this need, allowing researchers and professionals to run neuroimaging tasks in a modular, isolated, and scalable environment.
 
 ### Features
 
 - **Containerized Workflows**: Run neuroimaging workflows inside standardized containers ensuring consistency across various computing environments.
 - **Easy Scheduling**: Schedule your neuroimaging tasks seamlessly without the hassle of configuring complex environments.
-- **Scalability**: Whether you're processing data from a single patient or a cohort of thousands, NICOS scales according to your needs.
+- **Scalability**: Whether you're processing data from a single patient or a cohort of thousands, CASNI scales according to your needs.
 - **Reproducibility**: With containerization, reproduce your results across different platforms without any "it works on my machine" issues.
-- *(Any other features you want to highlight can be added here)*
 
 ---
 
@@ -38,7 +37,7 @@ Interested in contributing to CASNI? That's great! We appreciate any help, wheth
 
 ## License
 
-This project is licensed under the XYZ License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -49,7 +48,3 @@ This project is licensed under the XYZ License - see the [LICENSE.md](LICENSE.md
 ---
 
 Stay connected for more updates, and thank you for your interest in **CASNI**!
-
----
-
-This is a basic template to get you started. You can expand upon this README as the project grows and as more details become available.
