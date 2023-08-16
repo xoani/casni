@@ -3,13 +3,13 @@ import time
 import json
 from typing import Optional, Iterator, Union
 from dataclasses import dataclass
+import docker
 from docker.client import DockerClient
 from docker.errors import DockerException
 from docker.types import Mount
 from docker.models.containers import Container as DockerContainer
 from docker.models.nodes import Node as DockerNode
 from ..helper import colored, message, get_host_address
-import docker
 from .executor import NIPexec, Task
 
 # ==== DataClasses ====
