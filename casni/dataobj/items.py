@@ -91,6 +91,7 @@ class FileItem:
                 if isinstance(absdir, bool):
                     return os.path.join(self.absdir, modified)
                 else:
+                    os.makedirs(absdir, exist_ok=True)
                     return os.path.join(absdir, modified)
             else:
                 return modified

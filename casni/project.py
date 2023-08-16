@@ -31,6 +31,10 @@ class Project:
         return os.path.join(self.path, dataclass)
 
     def _init_step(self, id: str, name: str, annotation: str) -> str:
+        """
+        id: code
+        annotation: name
+        """
         info = StepItem(id, name, annotation, None)
         step_path = os.path.join(self.get_path('proc'), info.fullname)
         os.makedirs(step_path, exist_ok=True)
@@ -51,6 +55,7 @@ class Project:
     def __repr__(self):
         self.reload()
         repr = []
+        repr.append(f"* path: {self.path}\n")
         for d, ds in sorted(self.dataclass.items()):
             repr.append(f"{d}: {str(ds)}")
         return "\n".join(repr)

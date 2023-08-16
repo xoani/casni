@@ -4,13 +4,13 @@ import json
 from typing import Optional, Iterator, Union
 from dataclasses import dataclass
 from docker.client import DockerClient
+from docker.errors import DockerException
 from docker.types import Mount
 from docker.models.containers import Container as DockerContainer
 from docker.models.nodes import Node as DockerNode
 from ..helper import colored, message, get_host_address
 import docker
 from .executor import NIPexec, Task
-
 
 # ==== DataClasses ====
 @dataclass
@@ -230,11 +230,13 @@ def run_in_container(c: Container, cmd: str):
 
 # ==== MainClasses ====
 class Manager:
-    def __init__(self, n_workers=None, path=None):
+    def __init__(self, n_workers=None, path=None, port=2375):
         self.client = docker.from_env()
+        self.port = port
         self.update_nodes()
         self.set_num_workers(n_workers)
         self.service = None
+        self.containers = []
         
         if path:
             path = os.path.abspath(path)
@@ -268,6 +270,7 @@ class Manager:
         return all([n.is_installed(label, tag) for n in self.nodes])
 
     def set_num_workers(self, n_workers):
+        self.num_workers = n_workers
         if n_workers:
             self.mode = docker.types.ServiceMode('replicated', replicas=n_workers)
         else:
@@ -281,7 +284,14 @@ class Manager:
                 if node_dc.ip == get_ip_address(self.client):
                     node_dc.client = self.client
                 else:
-                    node_dc.client = docker.DockerClient(base_url=get_base_url(node_dc.ip))
+                    try:
+                        node_dc.client = docker.DockerClient(base_url=get_base_url(node_dc.ip, port=self.port))
+                    except DockerException:
+                        message(f'Unable to access node at IP {node_dc.ip}. Ensure `dockerd` is listening on port {self.port}.', io='stderr')
+                    except ConnectionRefusedError:
+                        message(f'Connection refused for node at IP {node_dc.ip}.', io='stderr')
+                    except:
+                        message(f'Unexpected error occurred while connecting to node at IP {node_dc.ip}.', io='stderr')
                 self.nodes.append(node_dc)
 
     def create_service(self, image, name, n_workers=None, volumes=None):
@@ -375,9 +385,10 @@ class Manager:
 
     def remove_service(self):
         # stop all container objects
-        for c in self.containers:
-            c.stop()
-        self.containers.clear()
+        if self.containers:
+            for c in self.containers:
+                c.stop()
+            self.containers.clear()
 
         # remove and clear service
         if self.service:
