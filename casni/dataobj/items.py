@@ -61,10 +61,11 @@ class FileItem:
         prefix: Optional[str] = None, 
         suffix: Optional[str] = None,
         ext: Optional[str] = None,
-        absdir: Union[bool, str] = False
+        absdir: Union[bool, str] = False,
+        noext: bool = False
         ) -> str:
         
-        if all([e == None for e in [prefix, suffix, replace, ext]]):
+        if all([e == None for e in [prefix, suffix, replace, ext, noext]]):
             if absdir:
                 if isinstance(absdir, bool):
                     return self.abspath
@@ -86,7 +87,8 @@ class FileItem:
             else:
                 ext = self.fileext
             
-            modified = f"{modified}.{ext}"
+            if not noext:
+                modified = f"{modified}.{ext}"
             if absdir:
                 if isinstance(absdir, bool):
                     return os.path.join(self.absdir, modified)
