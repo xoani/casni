@@ -395,11 +395,13 @@ class Manager:
             self.service.remove()
         self.service = None
 
+    def get_services(self):
+        return self.client.services.list()
+
     def remove_background_services(self, name=None):
+        bgservices = [s for s in self.get_services() if s.name != self.service.name] if self.service else self.get_services()
         if name:
-            bgservices = [s for s in self.client.services.list() if s.name == name]
-        else:
-            bgservices = self.client.services.list()
+            bgservices = [s for s in bgservices if s.name == name]
         if bgservices:
             message("\r+ Terminating background services...")
             for s in bgservices:
