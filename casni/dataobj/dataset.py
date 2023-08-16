@@ -330,7 +330,7 @@ class ProcDataset:
                                                    None]:
         if self.is_mask:
             list_obj = self.mask_list
-            dsets = [dset for dset in list_obj if dset.modal]
+            dsets = [dset for dset in list_obj if dset.modal == id]
         else:
             list_obj = self.step_list
             dsets = [dset for dset in list_obj if dset.id == id]
