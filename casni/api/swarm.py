@@ -1,7 +1,7 @@
 import os
 import time
 import json
-from typing import Optional, Iterator, Union
+from typing import Optional, Iterator
 from dataclasses import dataclass
 import docker
 from docker.client import DockerClient
@@ -10,7 +10,7 @@ from docker.types import Mount
 from docker.models.containers import Container as DockerContainer
 from docker.models.nodes import Node as DockerNode
 from ..helper import colored, message, get_host_address
-from .executor import NIPexec, Task
+from .executor import Executor, Task
 
 # ==== DataClasses ====
 @dataclass
@@ -122,7 +122,7 @@ class Container:
         self._init_event_loop()
 
     def _init_event_loop(self):
-        self._executor = NIPexec()
+        self._executor = Executor()
 
     def _init_remote_process(self):
         pass

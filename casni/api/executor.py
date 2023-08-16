@@ -66,7 +66,7 @@ class Terminator:
 
 
 # MainClasses
-class NIPexec(threading.Thread):
+class Executor(threading.Thread):
     """
     Method
     - submit
@@ -154,4 +154,4 @@ class NIPexec(threading.Thread):
 
 
 if __name__ == "__main__":
-    react = NIPexec()
+    react = Executor()
