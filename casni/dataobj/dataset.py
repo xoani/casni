@@ -320,8 +320,9 @@ class ProcDataset:
                         try:
                             self.step_list.append(StepItem(si["id"], si["name"], si["annotation"], dataset=self._scan_subpath(step)))
                         except:
-                            # empty
-                            pass
+                            from warnings import warn
+                            warn(f"Folder '{step}' does not comply with the BIDS standard format.")
+
 
     def __call__(self, id: str, **kwargs) -> Union[StepItem, 
                                                    MaskItem, 
