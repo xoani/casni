@@ -218,7 +218,8 @@ class BaseParser:
             is_not_bidsfiles = [filename for filename in filenames if file_pattern.match(filename) == None]
             if len(is_not_bidsfiles):
                 files_need_to_be_reviewed = "\n".join(is_not_bidsfiles)
-                raise InvalidFormatError(f"Not all file match the expected file format.\n{files_need_to_be_reviewed}")
+                from warnings import warn
+                warn(f"Not all file match the expected file format.\n{files_need_to_be_reviewed}")
         
         # returns validated subjects and sessions
         if modal:
